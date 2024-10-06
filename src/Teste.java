@@ -66,7 +66,7 @@ public class Teste {
         System.out.println("Valor do imposto da conta corrente: R$" + cCorrente.getValorImposto());
         calc.registraImposto(cCorrente);
         calc.registraImposto(seguro);
-        System.out.println("Valor total de impostos arrecadados: R$" + calc.getTotalImposto());
+        System.out.println("Valor total de impostos arrecadados: R$" + calc.getValorImposto());
 
 
 

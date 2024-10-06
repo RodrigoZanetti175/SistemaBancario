@@ -5,10 +5,6 @@ public class CalculadorImposto implements Tributavel{
         this.totalImposto += t.getValorImposto();
     }
 
-    public double getTotalImposto() {
-        return totalImposto;
-    }
-
     @Override
     public double getValorImposto() {
         return this.totalImposto;
