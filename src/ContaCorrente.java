@@ -14,8 +14,6 @@ public class ContaCorrente extends Conta{
     @Override
     public boolean sacar(double valor) {
         double taxa = 0.20;
-        if(super.sacar(valor+taxa))
-            return true;
-        return false;
+        return super.sacar(valor + taxa);
     }
 }
