@@ -58,5 +58,17 @@ public class Teste {
         System.out.println("Conta Corrente: R$" + cCorrente.getSaldo());
         System.out.println("Conta Poupança: R$" + cPoupanca.getSaldo());
 
+        //Teste Tributável
+
+        CalculadorImposto calc = new CalculadorImposto();
+        SeguroDeVida seguro = new SeguroDeVida(1000, "Rodrigo", 123);
+        System.out.println("\nValor do imposto do seguro de vida: R$" + seguro.getValorImposto());
+        System.out.println("Valor do imposto da conta corrente: R$" + cCorrente.getValorImposto());
+        calc.registraImposto(cCorrente);
+        calc.registraImposto(seguro);
+        System.out.println("Valor total de impostos arrecadados: R$" + calc.getTotalImposto());
+
+
+
     }
 }

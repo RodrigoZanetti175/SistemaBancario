@@ -1,4 +1,4 @@
-public class ContaCorrente extends Conta{
+public class ContaCorrente extends Conta implements Tributavel{
 
     public ContaCorrente(int agencia, int conta, String tipo, double saldo, String titular) {
         super(agencia, conta, tipo, saldo, titular);
@@ -15,5 +15,10 @@ public class ContaCorrente extends Conta{
     public boolean sacar(double valor) {
         double taxa = 0.20;
         return super.sacar(valor + taxa);
+    }
+
+    @Override
+    public double getValorImposto() {
+        return this.saldo * 0.01;
     }
 }
