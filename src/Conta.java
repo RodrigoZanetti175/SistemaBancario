@@ -17,11 +17,28 @@ public abstract class Conta {
 
     public abstract void depositar(double valor);
 
-    public  boolean sacar(double valor){
-        if(this.saldo>=valor && valor>0) {
+    public boolean sacar(double valor){
+        return sacar(valor, false);
+    }
+
+    public  boolean sacar(double valor, boolean aplicarTaxa){
+        if(valor > 300)
+            throw new SaqueMaximoException("Valor máximo de R$300,00 excedido");
+        if(aplicarTaxa) {
+            if ((valor - 0.2) % 20 != 0)
+                throw new CedulasInsuficientesException("Valor não disponível em notas de R$20,00");
+        }
+        else {
+            if (valor % 20 != 0)
+                throw new CedulasInsuficientesException("Valor de saque não disponível em notas de R$20,00");
+        }
+        if(this.saldo<valor)
+            throw new SaldoInsuficienteException("Saldo insuficiente");
+        if(valor>0) {
             this.saldo -= valor;
             return true;
         }
+
         return false;
     }
 

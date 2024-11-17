@@ -1,6 +1,6 @@
 public class Teste {
     public static void main(String[] args) {
-        ContaPoupanca cPoupanca = new ContaPoupanca(11,10, "Poupança", 1000.00, "Rodrigo");
+        ContaPoupanca cPoupanca = new ContaPoupanca(11,10, "Poupança", 250.00, "Rodrigo");
         System.out.println("Primeira quantidade de contas: " + Conta.getQuantidadeContas());
         ContaCorrente cCorrente = new ContaCorrente(11,12, "Corrente", 750.00, "Rodrigo");
         System.out.println("Segunda quantidade de contas: " + Conta.getQuantidadeContas());
@@ -25,10 +25,13 @@ public class Teste {
         cCorrente.sacar(100);
         System.out.println("Saldo da Conta Corrente após o saque: R$" +cCorrente.getSaldo());
         System.out.println("\nSaldo da Conta Poupança antes de um saque maior que o valor disponível na conta: R$" +cPoupanca.getSaldo());
-        if(cPoupanca.sacar(1100))
-            System.out.println("Saque realizado com sucesso!");
-        else
-            System.out.println("Saque inválido");
+        try{
+            cPoupanca.sacar(300);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
         System.out.println("Saldo da Conta Poupança depois de um saque maior que o valor disponível na conta: R$" +cPoupanca.getSaldo());
         System.out.println("\n--------------------");
 
@@ -37,19 +40,21 @@ public class Teste {
         System.out.println("\nSaldo da Conta Corrente antes de depositar um valor inválido: R$" +cCorrente.getSaldo());
         cCorrente.depositar(-120);
         System.out.println("Saldo da Conta Corrente após depositar um valor inválido: R$" + cCorrente.getSaldo());
-        System.out.println("\nSaldo da Conta Poupança antes de depositar R$200: R$" + cPoupanca.getSaldo());
-        cPoupanca.depositar(200);
-        System.out.println("Saldo da Conta Poupança depois de depositar R$200: R$" + cPoupanca.getSaldo());
+        System.out.println("\nSaldo da Conta Poupança antes de depositar R$20: R$" + cPoupanca.getSaldo());
+        cPoupanca.depositar(10);
+        System.out.println("Saldo da Conta Poupança depois de depositar R$20: R$" + cPoupanca.getSaldo());
         System.out.println("\n--------------------");
 
         //Transferir
-        System.out.println("\nSaldo da Conta Corrente antes de uma transferência de R$49.8 para a Conta Poupança");
-        cCorrente.transferir(49.8, cPoupanca);
-        System.out.println("\nSaldo da Conta Poupança antes de uma transferência inválida para a Conta Corrente");
-        if(cPoupanca.transferir(1500, cCorrente))
-            System.out.println("Transferência realizada com sucesso!");
-        else
-            System.out.println("Transferência falhou");
+        System.out.println("\nSaldo da Conta Corrente antes de uma transferência de R$20 para a Conta Poupança: R$ " + cCorrente.getSaldo());
+        cCorrente.transferir(20, cPoupanca);
+        System.out.println("\nSaldo da Conta Poupança antes de uma transferência inválida para a Conta Corrente: R$ " + cPoupanca.getSaldo());
+        try{
+            cPoupanca.transferir(290, cCorrente);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
         System.out.println("\n--------------------");
 
         //Saldos Finais
@@ -68,6 +73,32 @@ public class Teste {
         calc.registraImposto(seguro);
         System.out.println("Valor total de impostos arrecadados: R$" + calc.getValorImposto());
 
+        System.out.println("\n--------------------");
+
+        System.out.println("Teste de Exceptions\n");
+
+        //Teste de exceções
+
+        try {
+            cPoupanca.sacar(300);
+        } catch (SaldoInsuficienteException e) {
+            System.out.println("Tentativa de saque de R$300,00");
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            cPoupanca.sacar(70);
+        } catch (CedulasInsuficientesException e) {
+            System.out.println("\nTentativa de saque de R$70,00");
+            System.out.println(e.getMessage());
+        }
+
+        try{
+            cCorrente.sacar(400);
+        } catch (SaqueMaximoException e){
+            System.out.println("\nTentativa de saque de R$400,00");
+            System.out.println(e.getMessage());
+        }
 
 
     }
